@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Login - Ration Shop Management</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <a href="../index.html" class="back-link">
+        <i class="fa-solid fa-arrow-left"></i> Back to Main Portal
+      </a>
+
+      <h3 class="form-title"><i class="fa-solid fa-user-check"></i> User Login</h3>
+      <p class="subtext">Access your Ration Card dashboard & monthly quota</p>
+
+      <form action="home.html" method="GET">
+        <div class="form-group margin-top">
+          <label><i class="fa-solid fa-id-card"></i> Select Identifier Type</label>
+          <select id="userIdentifierType" onchange="updatePlaceholder()">
+            <option value="ration">Ration Card ID</option>
+            <option value="mobile">Registered Mobile Number</option>
+            <option value="aadhaar">Aadhaar Card Number</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label id="identifierLabel">Ration Card ID</label>
+          <input type="text" id="identifierInput" placeholder="e.g. TN-892300192" required>
+        </div>
+
+        <div class="form-group">
+          <label><i class="fa-solid fa-lock"></i> Password</label>
+          <div style="position: relative;">
+            <input type="password" id="userPass" placeholder="Enter password" required>
+            <i class="fa-solid fa-eye" style="position: absolute; right: 12px; top: 12px; cursor: pointer; color: var(--text-muted);" onclick="togglePassword('userPass', this)"></i>
+          </div>
+          <div class="form-actions text-right margin-top-xs">
+            <a href="forgot-password.html">Forgot Password?</a>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full margin-top">
+          <i class="fa-solid fa-right-to-bracket"></i> Login as Beneficiary
+        </button>
+      </form>
+
+      <div class="auth-footer-prompt margin-top">
+        Don't have an account? <a href="register.html">Register Here</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script>
+    function updatePlaceholder() {
+      const type = document.getElementById('userIdentifierType').value;
+      const input = document.getElementById('identifierInput');
+      const label = document.getElementById('identifierLabel');
+
+      if (type === 'ration') {
+        label.textContent = "Ration Card ID";
+        input.placeholder = "e.g. TN-892300192";
+      } else if (type === 'mobile') {
+        label.textContent = "Registered Mobile Number";
+        input.placeholder = "e.g. 9876543210";
+      } else if (type === 'aadhaar') {
+        label.textContent = "12-Digit Aadhaar Number";
+        input.placeholder = "e.g. 5489 1204 9912";
+      }
+    }
+  </script>
+</body>
+</html>
