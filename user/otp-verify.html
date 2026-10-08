@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTP Verification - Ration Shop Management</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <a href="login.html" class="back-link">
+        <i class="fa-solid fa-arrow-left"></i> Cancel
+      </a>
+
+      <h3 class="form-title"><i class="fa-solid fa-shield-halved"></i> Enter OTP Code</h3>
+      <p class="subtext">A 4-digit code was sent to +91 ******3210</p>
+
+      <form action="password-confirm.html" method="GET">
+        <div class="otp-container">
+          <input type="text" maxlength="1" class="otp-box" required>
+          <input type="text" maxlength="1" class="otp-box" required>
+          <input type="text" maxlength="1" class="otp-box" required>
+          <input type="text" maxlength="1" class="otp-box" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">Verify OTP</button>
+      </form>
+
+      <div class="auth-footer-prompt margin-top">
+        Didn't receive code? <a href="otp-retry.html">Resend OTP</a> | <a href="otp-invalid.html" style="color:var(--danger-color)">Simulate Invalid OTP</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
