@@ -10,454 +10,367 @@
 </head>
 <body>
 
-    <!-- TOP NAVIGATION HEADER -->
-    <header class="app-header">
-        <div class="header-left">
-            <button id="sidebarToggle" class="icon-btn"><i class="fa-solid fa-bars"></i></button>
-            <div class="brand-logo">
-                <i class="fa-solid fa-store"></i>
-                <span>Ration Shop Management</span>
+    <!-- =========================================================
+         1. AUTHENTICATION / LANDING VIEW (ACTIVE BY DEFAULT)
+         ========================================================= -->
+    <div id="authView" class="auth-wrapper">
+        <div class="auth-card card">
+            
+            <!-- A. COMMON LANDING PAGE (Initial Screen) -->
+            <div id="commonLandingScreen" class="auth-screen">
+                <div class="auth-brand">
+                    <i class="fa-solid fa-store fa-3x brand-icon"></i>
+                    <h2>Ration Shop Management</h2>
+                    <p class="subtext">Select your login portal to proceed</p>
+                </div>
+
+                <div class="role-button-group">
+                    <button class="btn btn-primary full-width large-btn" onclick="goToScreen('userLoginScreen')">
+                        <i class="fa-solid fa-user"></i> Staff / User Login
+                    </button>
+                    <button class="btn btn-secondary full-width large-btn" onclick="goToScreen('staffLoginScreen')">
+                        <i class="fa-solid fa-id-badge"></i> Staff Login
+                    </button>
+                </div>
+
+                <div class="auth-footer-link">
+                    <p>New User? <a href="#" onclick="goToScreen('registrationScreen')">Register Here</a></p>
+                </div>
             </div>
+
+            <!-- B. USER LOGIN SCREEN -->
+            <div id="userLoginScreen" class="auth-screen hidden">
+                <button class="back-link" onclick="goToScreen('commonLandingScreen')">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </button>
+                <div class="auth-brand">
+                    <h2>User Login</h2>
+                    <p class="subtext">Enter your Ration Card credentials</p>
+                </div>
+
+                <form onsubmit="handleUserLogin(event)">
+                    <div class="form-group">
+                        <label>Ration Card ID</label>
+                        <input type="text" placeholder="Enter Ration Card ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="Enter password" required>
+                    </div>
+                    <div class="form-options">
+                        <a href="#" onclick="goToScreen('forgotPasswordScreen')">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary full-width">Login</button>
+                </form>
+            </div>
+
+            <!-- C. STAFF LOGIN SCREEN -->
+            <div id="staffLoginScreen" class="auth-screen hidden">
+                <button class="back-link" onclick="goToScreen('commonLandingScreen')">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </button>
+                <div class="auth-brand">
+                    <h2>Staff Login</h2>
+                    <p class="subtext">Enter your official Staff ID & Credentials</p>
+                </div>
+
+                <form onsubmit="handleStaffLogin(event)">
+                    <div class="form-group">
+                        <label>Staff ID</label>
+                        <input type="text" placeholder="Enter Staff ID (e.g., 1042)" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="Enter password" required>
+                    </div>
+                    <div class="form-options">
+                        <a href="#" onclick="goToScreen('forgotPasswordScreen')">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary full-width">Login to Staff Portal</button>
+                </form>
+            </div>
+
+            <!-- D. NEW USER REGISTRATION SCREEN -->
+            <div id="registrationScreen" class="auth-screen hidden">
+                <button class="back-link" onclick="goToScreen('commonLandingScreen')">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </button>
+                <div class="auth-brand">
+                    <h2>User Registration</h2>
+                    <p class="subtext">Register your Ration Card for online management</p>
+                </div>
+
+                <form onsubmit="handleRegistration(event)">
+                    <div class="form-group">
+                        <label>Ration Card ID</label>
+                        <input type="text" placeholder="Enter Ration Card ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" placeholder="Enter phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="Enter password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" placeholder="Confirm password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary full-width">Register</button>
+                </form>
+            </div>
+
+            <!-- E. FORGOT PASSWORD / OTP SCREEN -->
+            <div id="forgotPasswordScreen" class="auth-screen hidden">
+                <button class="back-link" onclick="goToScreen('commonLandingScreen')">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </button>
+                <div class="auth-brand">
+                    <h2>Forgot Password</h2>
+                    <p class="subtext">Verify your mobile number to reset password</p>
+                </div>
+
+                <div id="forgotStep1">
+                    <div class="form-group">
+                        <label>Registered Phone Number or ID</label>
+                        <input type="text" placeholder="Enter Phone or ID">
+                    </div>
+                    <button type="button" class="btn btn-primary full-width" onclick="sendOtp()">Send OTP</button>
+                </div>
+
+                <div id="forgotStep2" class="hidden">
+                    <p class="subtext text-center">Please type 4-digit verification code sent to XXXXXX0123</p>
+                    <div class="otp-inputs">
+                        <input type="text" maxlength="1" class="otp-box">
+                        <input type="text" maxlength="1" class="otp-box">
+                        <input type="text" maxlength="1" class="otp-box">
+                        <input type="text" maxlength="1" class="otp-box">
+                    </div>
+                    <button type="button" class="btn btn-primary full-width" onclick="verifyOtp()">Verify Code</button>
+                </div>
+            </div>
+
         </div>
+    </div>
 
-        <div class="header-right">
-            <!-- Portal Mode Switcher -->
-            <div class="role-switch-container">
-                <span class="role-label">Mode:</span>
-                <select id="roleSelect" onchange="switchRole(this.value)">
-                    <option value="user">User Portal</option>
-                    <option value="staff">Staff Portal</option>
-                </select>
-            </div>
 
-            <button class="icon-btn" onclick="openModal('notificationsModal')">
-                <i class="fa-solid fa-bell"></i>
-                <span class="badge">3</span>
-            </button>
+    <!-- =========================================================
+         2. MAIN APP DASHBOARD VIEW (LOCKED UNTIL LOGIN)
+         ========================================================= -->
+    <div id="mainDashboardView" class="hidden">
 
-            <div class="user-profile-summary">
-                <div class="avatar" id="userAvatar">S</div>
-                <div class="user-details">
-                    <span class="user-name" id="userName">SARA</span>
-                    <span class="user-role" id="userRoleBadge">User ID: 12345</span>
+        <!-- TOP NAVIGATION HEADER -->
+        <header class="app-header">
+            <div class="header-left">
+                <button id="sidebarToggle" class="icon-btn"><i class="fa-solid fa-bars"></i></button>
+                <div class="brand-logo">
+                    <i class="fa-solid fa-store"></i>
+                    <span>Ration Shop Management</span>
                 </div>
             </div>
 
-            <button class="btn btn-outline" onclick="openModal('authModal')">
-                <i class="fa-solid fa-right-to-bracket"></i> Login / Register
-            </button>
-        </div>
-    </header>
+            <div class="header-right">
+                <button class="icon-btn" onclick="openModal('notificationsModal')">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="badge">3</span>
+                </button>
 
-    <!-- MAIN APP WRAPPER -->
-    <div class="app-container">
-
-        <!-- SIDEBAR NAVIGATION -->
-        <aside class="sidebar" id="sidebar">
-            <nav class="sidebar-nav">
-                <!-- USER NAV LINKS -->
-                <div class="nav-group" id="userNavGroup">
-                    <div class="nav-title">User Menu</div>
-                    <a href="#" class="nav-item active" onclick="switchTab('user-home', this)">
-                        <i class="fa-solid fa-house"></i> Home Dashboard
-                    </a>
-                    <a href="#" class="nav-item" onclick="switchTab('user-shops', this)">
-                        <i class="fa-solid fa-shop"></i> All Shops & Search
-                    </a>
-                    <a href="#" class="nav-item" onclick="switchTab('user-news', this)">
-                        <i class="fa-solid fa-newspaper"></i> News & Announcements
-                    </a>
-                    <a href="#" class="nav-item" onclick="switchTab('user-transactions', this)">
-                        <i class="fa-solid fa-receipt"></i> Transaction History
-                    </a>
-                    <a href="#" class="nav-item" onclick="switchTab('user-profile', this)">
-                        <i class="fa-solid fa-user"></i> My Profile
-                    </a>
+                <div class="user-profile-summary">
+                    <div class="avatar" id="userAvatar">S</div>
+                    <div class="user-details">
+                        <span class="user-name" id="userName">SARA</span>
+                        <span class="user-role" id="userRoleBadge">User ID: 12345</span>
+                    </div>
                 </div>
 
-                <!-- STAFF NAV LINKS -->
-                <div class="nav-group hidden" id="staffNavGroup">
-                    <div class="nav-title">Staff Menu</div>
-                    <a href="#" class="nav-item" onclick="switchTab('staff-home', this)">
-                        <i class="fa-solid fa-chart-line"></i> Terminal Dashboard
-                    </a>
-                    <a href="#" class="nav-item" onclick="switchTab('staff-search', this)">
-                        <i class="fa-solid fa-magnifying-glass"></i> Search Ration Card
-                    </a>
-                    <a href="#" class="nav-item" onclick="switchTab('staff-stock', this)">
-                        <i class="fa-solid fa-boxes-stacked"></i> Update Stock
-                    </a>
-                    <a href="#" class="nav-item" onclick="switchTab('staff-distributions', this)">
-                        <i class="fa-solid fa-truck-ramp-box"></i> Distribution Logs
-                    </a>
-                    <a href="#" class="nav-item" onclick="switchTab('staff-profile', this)">
-                        <i class="fa-solid fa-id-badge"></i> Staff Profile
-                    </a>
-                </div>
-            </nav>
-
-            <div class="sidebar-footer">
-                <p>&copy; 2026 Ration Mgmt App</p>
+                <button class="btn btn-outline" onclick="handleLogout()">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </button>
             </div>
-        </aside>
+        </header>
 
-        <!-- DYNAMIC MAIN CONTENT VIEWPORT -->
-        <main class="content-area">
+        <!-- MAIN CONTAINER -->
+        <div class="app-container">
 
-            <!-- 1. USER HOME DASHBOARD -->
-            <section id="user-home" class="tab-page active">
-                <div class="page-header">
-                    <h2>Welcome back, Sara!</h2>
-                    <p>Check active ration shop statuses, announcements, and quick updates.</p>
+            <!-- SIDEBAR NAVIGATION -->
+            <aside class="sidebar" id="sidebar">
+                <nav class="sidebar-nav">
+                    <!-- USER NAV LINKS -->
+                    <div class="nav-group" id="userNavGroup">
+                        <div class="nav-title">User Menu</div>
+                        <a href="#" class="nav-item active" onclick="switchTab('user-home', this)">
+                            <i class="fa-solid fa-house"></i> Home Dashboard
+                        </a>
+                        <a href="#" class="nav-item" onclick="switchTab('user-shops', this)">
+                            <i class="fa-solid fa-shop"></i> All Shops & Search
+                        </a>
+                        <a href="#" class="nav-item" onclick="switchTab('user-news', this)">
+                            <i class="fa-solid fa-newspaper"></i> News & Announcements
+                        </a>
+                        <a href="#" class="nav-item" onclick="switchTab('user-transactions', this)">
+                            <i class="fa-solid fa-receipt"></i> Transaction History
+                        </a>
+                        <a href="#" class="nav-item" onclick="switchTab('user-profile', this)">
+                            <i class="fa-solid fa-user"></i> My Profile
+                        </a>
+                    </div>
+
+                    <!-- STAFF NAV LINKS -->
+                    <div class="nav-group hidden" id="staffNavGroup">
+                        <div class="nav-title">Staff Menu</div>
+                        <a href="#" class="nav-item" onclick="switchTab('staff-home', this)">
+                            <i class="fa-solid fa-chart-line"></i> Terminal Dashboard
+                        </a>
+                        <a href="#" class="nav-item" onclick="switchTab('staff-search', this)">
+                            <i class="fa-solid fa-magnifying-glass"></i> Search Ration Card
+                        </a>
+                        <a href="#" class="nav-item" onclick="switchTab('staff-stock', this)">
+                            <i class="fa-solid fa-boxes-stacked"></i> Update Stock
+                        </a>
+                        <a href="#" class="nav-item" onclick="switchTab('staff-distributions', this)">
+                            <i class="fa-solid fa-truck-ramp-box"></i> Distribution Logs
+                        </a>
+                        <a href="#" class="nav-item" onclick="switchTab('staff-profile', this)">
+                            <i class="fa-solid fa-id-badge"></i> Staff Profile
+                        </a>
+                    </div>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <p>&copy; 2026 Ration Mgmt App</p>
                 </div>
+            </aside>
 
-                <div class="cards-grid">
-                    <div class="card shop-info-card">
-                        <div class="card-header">
-                            <i class="fa-solid fa-store"></i>
-                            <div>
-                                <h3>Main Ration Shop, Nagercoil</h3>
-                                <p class="subtext">Shop ID: #12345</p>
+            <!-- MAIN CONTENT AREA -->
+            <main class="content-area">
+
+                <!-- USER HOME DASHBOARD -->
+                <section id="user-home" class="tab-page active">
+                    <div class="page-header">
+                        <h2>Welcome back, Sara!</h2>
+                        <p>Check active ration shop statuses, announcements, and quick updates.</p>
+                    </div>
+
+                    <div class="cards-grid">
+                        <div class="card shop-info-card">
+                            <div class="card-header">
+                                <i class="fa-solid fa-store"></i>
+                                <div>
+                                    <h3>Main Ration Shop, Nagercoil</h3>
+                                    <p class="subtext">Shop ID: #12345</p>
+                                </div>
                             </div>
+                            <div class="status-pill open"><i class="fa-solid fa-circle"></i> Open Today</div>
+                            <hr class="divider">
+                            <p><strong>Timing:</strong> 8:30 AM - 5:30 PM</p>
+                            <p><strong>Staff In-charge:</strong> S. Dinesh (ID: 1042)</p>
                         </div>
-                        <div class="status-pill open"><i class="fa-solid fa-circle"></i> Open Today</div>
-                        <hr class="divider">
-                        <p><strong>Timing:</strong> 8:30 AM - 5:30 PM</p>
-                        <p><strong>Staff In-charge:</strong> S. Dinesh (ID: 1042)</p>
-                    </div>
 
-                    <div class="card stock-card">
-                        <h3>Available Quota Stock</h3>
-                        <ul class="stock-list">
-                            <li><span><i class="fa-solid fa-wheat-awn"></i> Rice</span> <strong>20 kg</strong></li>
-                            <li><span><i class="fa-solid fa-bowl-rice"></i> Sugar</span> <strong>5 kg</strong></li>
-                            <li><span><i class="fa-solid fa-bottle-droplet"></i> Kerosene</span> <strong>3 L</strong></li>
-                            <li><span><i class="fa-solid fa-seedling"></i> Wheat</span> <strong>10 kg</strong></li>
-                        </ul>
-                    </div>
-
-                    <div class="card announcements-card">
-                        <h3><i class="fa-solid fa-bullhorn"></i> Important Updates</h3>
-                        <div class="news-item">
-                            <h4>Special Festival Distribution</h4>
-                            <p>Additional 5kg rice will be distributed starting 15th of this month.</p>
-                            <small>Posted 2 days ago</small>
+                        <div class="card stock-card">
+                            <h3>Available Quota Stock</h3>
+                            <ul class="stock-list">
+                                <li><span><i class="fa-solid fa-wheat-awn"></i> Rice</span> <strong>20 kg</strong></li>
+                                <li><span><i class="fa-solid fa-bowl-rice"></i> Sugar</span> <strong>5 kg</strong></li>
+                                <li><span><i class="fa-solid fa-bottle-droplet"></i> Kerosene</span> <strong>3 L</strong></li>
+                                <li><span><i class="fa-solid fa-seedling"></i> Wheat</span> <strong>10 kg</strong></li>
+                            </ul>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- 2. USER ALL SHOPS & SEARCH -->
-            <section id="user-shops" class="tab-page">
-                <div class="page-header">
-                    <h2>Find Ration Shops</h2>
-                    <p>Search and locate ration outlets near you.</p>
-                </div>
-
-                <div class="search-bar-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Search by Shop Name, ID, or Location...">
-                    <button class="btn btn-primary">Search</button>
-                </div>
-
-                <div class="shops-list-container">
-                    <div class="card shop-list-item">
-                        <div class="shop-item-details">
-                            <h3>Nagercoil Central Ration Shop</h3>
-                            <p><i class="fa-solid fa-location-dot"></i> Main Road, Nagercoil</p>
-                            <span class="tag open">Open</span>
-                        </div>
-                        <button class="btn btn-secondary" onclick="openModal('shopDetailModal')">View Details</button>
+                <!-- USER ALL SHOPS -->
+                <section id="user-shops" class="tab-page">
+                    <div class="page-header">
+                        <h2>Find Ration Shops</h2>
                     </div>
-
-                    <div class="card shop-list-item">
-                        <div class="shop-item-details">
-                            <h3>Kottar North Outlet</h3>
-                            <p><i class="fa-solid fa-location-dot"></i> Market Road, Kottar</p>
-                            <span class="tag open">Open</span>
-                        </div>
-                        <button class="btn btn-secondary" onclick="openModal('shopDetailModal')">View Details</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 3. USER NEWS -->
-            <section id="user-news" class="tab-page">
-                <div class="page-header">
-                    <h2>Public Notices & News</h2>
-                </div>
-                <div class="card">
-                    <article class="news-article">
-                        <h3>New Digital Ration Card Linking Guidelines</h3>
-                        <p class="date">October 2026</p>
-                        <p>All cardholders are required to verify their mobile numbers for OTP distribution updates. Please ensure your registered mobile number is updated at your local shop or via the profile page.</p>
-                    </article>
-                </div>
-            </section>
-
-            <!-- 4. USER TRANSACTIONS -->
-            <section id="user-transactions" class="tab-page">
-                <div class="page-header">
-                    <h2>My Transaction History</h2>
-                </div>
-                <div class="card">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Transaction ID</th>
-                                <th>Items Collected</th>
-                                <th>Shop ID</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>02 Oct 2026</td>
-                                <td>#TXN-90812</td>
-                                <td>Rice (10kg), Sugar (2kg)</td>
-                                <td>#12345</td>
-                                <td><span class="status-badge success">Completed</span></td>
-                            </tr>
-                            <tr>
-                                <td>15 Sep 2026</td>
-                                <td>#TXN-88123</td>
-                                <td>Rice (10kg), Wheat (5kg)</td>
-                                <td>#12345</td>
-                                <td><span class="status-badge success">Completed</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 5. USER PROFILE -->
-            <section id="user-profile" class="tab-page">
-                <div class="page-header">
-                    <h2>User Profile Details</h2>
-                </div>
-                <div class="card profile-card">
-                    <div class="profile-header">
-                        <div class="avatar large">S</div>
-                        <div>
-                            <h3>Sara</h3>
-                            <p>Ration Card No: <strong>TN-892300192</strong></p>
-                        </div>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" value="Sara" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>Mobile Number</label>
-                            <input type="text" value="+91 9876543210" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>Assigned Shop</label>
-                            <input type="text" value="Main Ration Shop, Nagercoil" readonly>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 6. STAFF HOME (TERMINAL) -->
-            <section id="staff-home" class="tab-page">
-                <div class="page-header">
-                    <h2>Staff Operations Terminal</h2>
-                    <p>Welcome, S. Dinesh (Staff ID: 1042)</p>
-                </div>
-
-                <div class="cards-grid">
-                    <div class="card action-card" onclick="switchTab('staff-search', document.querySelectorAll('.nav-item')[6])">
-                        <i class="fa-solid fa-address-card fa-2x"></i>
-                        <h3>Search Card & Distribute</h3>
-                        <p>Verify citizen ration cards and log distribution</p>
-                    </div>
-
-                    <div class="card action-card" onclick="switchTab('staff-stock', document.querySelectorAll('.nav-item')[7])">
-                        <i class="fa-solid fa-box-open fa-2x"></i>
-                        <h3>Stock Inventory</h3>
-                        <p>Update stock quantities and log fresh supplies</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 7. STAFF SEARCH -->
-            <section id="staff-search" class="tab-page">
-                <div class="page-header">
-                    <h2>Search Ration Card</h2>
-                </div>
-                <div class="card">
                     <div class="search-bar-box">
-                        <input type="text" placeholder="Enter Ration Card No or Mobile Number...">
-                        <button class="btn btn-primary" onclick="showStaffSearchResult()">Search Card</button>
+                        <input type="text" placeholder="Search by Shop Name, ID, or Location...">
+                        <button class="btn btn-primary">Search</button>
                     </div>
+                    <div class="card shop-list-item">
+                        <h3>Nagercoil Central Ration Shop</h3>
+                        <p>Main Road, Nagercoil</p>
+                    </div>
+                </section>
 
-                    <div id="staffSearchResult" class="result-box hidden">
-                        <hr class="divider">
-                        <h3>Cardholder Details</h3>
-                        <p><strong>Card Number:</strong> TN-892300192</p>
-                        <p><strong>Holder Name:</strong> Sara</p>
-                        <p><strong>Card Type:</strong> PHH (Priority Household)</p>
-                        <button class="btn btn-success" onclick="openModal('distributionModal')">Proceed to Quantity Distribution</button>
-                    </div>
-                </div>
-            </section>
+                <!-- USER NEWS -->
+                <section id="user-news" class="tab-page">
+                    <div class="page-header"><h2>Public Notices & News</h2></div>
+                    <div class="card"><p>New Digital Ration Card linking guidelines for 2026.</p></div>
+                </section>
 
-            <!-- 8. STAFF UPDATE STOCK -->
-            <section id="staff-stock" class="tab-page">
-                <div class="page-header">
-                    <h2>Update Stock Inventory</h2>
-                </div>
-                <div class="card form-card">
-                    <div class="form-group">
-                        <label>Select Commodity Product</label>
-                        <select>
-                            <option>Rice (Raw)</option>
-                            <option>Sugar</option>
-                            <option>Wheat</option>
-                            <option>Kerosene</option>
-                        </select>
+                <!-- USER TRANSACTIONS -->
+                <section id="user-transactions" class="tab-page">
+                    <div class="page-header"><h2>My Transaction History</h2></div>
+                    <div class="card">
+                        <p>Latest: 10kg Rice, 2kg Sugar on 02 Oct 2026</p>
                     </div>
-                    <div class="form-group">
-                        <label>Current Stock (kg / L)</label>
-                        <input type="number" value="500" id="stockQty">
+                </section>
+
+                <!-- USER PROFILE -->
+                <section id="user-profile" class="tab-page">
+                    <div class="page-header"><h2>User Profile</h2></div>
+                    <div class="card"><p>Name: Sara | Card No: TN-892300192</p></div>
+                </section>
+
+                <!-- STAFF HOME -->
+                <section id="staff-home" class="tab-page">
+                    <div class="page-header">
+                        <h2>Staff Operations Terminal</h2>
+                        <p>Logged in as S. Dinesh (Staff ID: 1042)</p>
                     </div>
-                    <div class="form-group">
-                        <label>Stock Adjustment</label>
-                        <div class="qty-counter">
-                            <button class="btn btn-secondary" onclick="adjustQty(-10)">- 10</button>
-                            <button class="btn btn-secondary" onclick="adjustQty(10)">+ 10</button>
+                    <div class="cards-grid">
+                        <div class="card" onclick="switchTab('staff-search')">
+                            <h3>Search Card & Distribute</h3>
+                        </div>
+                        <div class="card" onclick="switchTab('staff-stock')">
+                            <h3>Update Stock Inventory</h3>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>Reason for Update</label>
-                        <textarea placeholder="e.g. New stock supply arrival from warehouse"></textarea>
+                </section>
+
+                <!-- STAFF SEARCH -->
+                <section id="staff-search" class="tab-page">
+                    <div class="page-header"><h2>Search Ration Card</h2></div>
+                    <div class="card">
+                        <input type="text" placeholder="Enter Ration Card No...">
+                        <button class="btn btn-primary">Search</button>
                     </div>
-                    <button class="btn btn-primary" onclick="alert('Stock Inventory Updated Successfully!')">Save Stock Update</button>
-                </div>
-            </section>
+                </section>
 
-            <!-- 9. STAFF DISTRIBUTIONS LOG -->
-            <section id="staff-distributions" class="tab-page">
-                <div class="page-header">
-                    <h2>Distribution Records</h2>
-                </div>
-                <div class="card">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Card No</th>
-                                <th>Beneficiary</th>
-                                <th>Items Given</th>
-                                <th>Timestamp</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>TN-892300192</td>
-                                <td>Sara</td>
-                                <td>Rice (10kg), Sugar (2kg)</td>
-                                <td>08 Oct 2026, 10:15 AM</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+                <!-- STAFF STOCK -->
+                <section id="staff-stock" class="tab-page">
+                    <div class="page-header"><h2>Update Stock Inventory</h2></div>
+                    <div class="card"><p>Select product and adjust stock quantity.</p></div>
+                </section>
 
-            <!-- 10. STAFF PROFILE -->
-            <section id="staff-profile" class="tab-page">
-                <div class="page-header">
-                    <h2>Staff Profile</h2>
-                </div>
-                <div class="card profile-card">
-                    <h3>S. Dinesh</h3>
-                    <p>Staff ID: <strong>1042</strong></p>
-                    <p>Shop Assigned: <strong>Main Ration Shop, Nagercoil (#12345)</strong></p>
-                </div>
-            </section>
+                <!-- STAFF DISTRIBUTIONS -->
+                <section id="staff-distributions" class="tab-page">
+                    <div class="page-header"><h2>Distribution Log</h2></div>
+                    <div class="card"><p>Distribution records will appear here.</p></div>
+                </section>
 
-        </main>
+                <!-- STAFF PROFILE -->
+                <section id="staff-profile" class="tab-page">
+                    <div class="page-header"><h2>Staff Profile</h2></div>
+                    <div class="card"><p>Staff: S. Dinesh (ID: 1042)</p></div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="app-footer">
+            <p>&copy; 2026 Ration Shop Management System.</p>
+        </footer>
     </div>
 
-    <!-- GLOBAL FOOTER -->
-    <footer class="app-footer">
-        <p>&copy; 2026 Ration Shop Management System. Designed for Web.</p>
-        <div class="footer-links">
-            <a href="#">Help & Support</a>
-            <span>|</span>
-            <a href="#">Terms of Service</a>
-            <span>|</span>
-            <a href="#">Privacy Policy</a>
-        </div>
-    </footer>
-
-    <!-- MODAL POPUPS -->
-    <!-- Authentication Modal (Login / Register / OTP) -->
-    <div class="modal" id="authModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('authModal')">&times;</span>
-            <div id="loginStep">
-                <h2>Account Login</h2>
-                <div class="form-group">
-                    <label>Ration Card ID / Staff ID</label>
-                    <input type="text" placeholder="Enter ID">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" placeholder="Enter password">
-                </div>
-                <button class="btn btn-primary full-width" onclick="switchAuthStep('otpStep')">Send OTP / Login</button>
-                <div class="modal-footer-links">
-                    <a href="#" onclick="switchAuthStep('forgotStep')">Forgot Password?</a>
-                </div>
-            </div>
-
-            <div id="otpStep" class="hidden">
-                <h2>Enter OTP Verification</h2>
-                <p>An OTP has been sent to your registered mobile number.</p>
-                <div class="otp-inputs">
-                    <input type="text" maxlength="1" class="otp-box">
-                    <input type="text" maxlength="1" class="otp-box">
-                    <input type="text" maxlength="1" class="otp-box">
-                    <input type="text" maxlength="1" class="otp-box">
-                </div>
-                <button class="btn btn-primary full-width" onclick="closeModal('authModal')">Verify & Proceed</button>
-            </div>
-
-            <div id="forgotStep" class="hidden">
-                <h2>Reset Password</h2>
-                <div class="form-group">
-                    <label>Enter Registered Mobile Number or ID</label>
-                    <input type="text" placeholder="e.g. +91 9876543210">
-                </div>
-                <button class="btn btn-primary full-width" onclick="switchAuthStep('otpStep')">Send Reset OTP</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Shop Details Modal -->
-    <div class="modal" id="shopDetailModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('shopDetailModal')">&times;</span>
-            <h2>Shop Details: #12345</h2>
-            <p><strong>Name:</strong> Main Ration Shop, Nagercoil</p>
-            <p><strong>Address:</strong> Town Hall Road, Nagercoil</p>
-            <p><strong>In-Charge:</strong> S. Dinesh (Staff ID: 1042)</p>
-            <p><strong>Contact:</strong> +91 94433 00000</p>
-        </div>
-    </div>
-
-    <!-- Notifications Modal -->
+    <!-- NOTIFICATIONS MODAL -->
     <div class="modal" id="notificationsModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('notificationsModal')">&times;</span>
             <h2>Notifications</h2>
-            <ul class="notification-list">
-                <li><i class="fa-solid fa-circle-info"></i> Quota for October month is now available for collection.</li>
-                <li><i class="fa-solid fa-check"></i> Transaction #TXN-90812 completed successfully.</li>
-            </ul>
+            <p>Quota for this month is now available.</p>
         </div>
     </div>
 
