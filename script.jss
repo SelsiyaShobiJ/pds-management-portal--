@@ -1,97 +1,110 @@
-// Screen Navigator within Auth Card
-function goToScreen(screenId) {
-    // Hide all auth screens
-    const screens = document.querySelectorAll('.auth-screen');
-    screens.forEach(s => s.classList.add('hidden'));
+// Auth Screen Switcher
+function showAuthForm(viewId) {
+  const stepViews = document.querySelectorAll('.auth-step-view');
+  stepViews.forEach(view => view.classList.add('hidden'));
 
-    // Show target screen
-    const target = document.getElementById(screenId);
-    if (target) {
-        target.classList.remove('hidden');
-    }
+  const targetView = document.getElementById(viewId);
+  if (targetView) {
+    targetView.classList.remove('hidden');
+  }
 }
 
-// User Login Handler
-function handleUserLogin(event) {
-    event.preventDefault();
-    
-    // Set User Profile Data
-    document.getElementById('userName').textContent = "SARA";
-    document.getElementById('userRoleBadge').textContent = "User ID: 12345";
-    document.getElementById('userAvatar').textContent = "S";
+// User Login Action
+function handleUserSubmit(event) {
+  event.preventDefault();
 
-    // Navigation menus
-    document.getElementById('userNavGroup').classList.remove('hidden');
-    document.getElementById('staffNavGroup').classList.add('hidden');
+  // Set Profile Header Values
+  document.getElementById('displayName').textContent = "SARA";
+  document.getElementById('displayRole').textContent = "User ID: 12345";
+  document.getElementById('avatarIcon').textContent = "S";
 
-    // Unlock App
-    unlockDashboard('user-home');
+  // Show User Navigation Menu
+  document.getElementById('userMenu').classList.remove('hidden');
+  document.getElementById('staffMenu').classList.add('hidden');
+
+  unlockMainApp('user-home-page');
 }
 
-// Staff Login Handler
-function handleStaffLogin(event) {
-    event.preventDefault();
+// Staff Login Action
+function handleStaffSubmit(event) {
+  event.preventDefault();
 
-    // Set Staff Profile Data
-    document.getElementById('userName').textContent = "S. DINESH";
-    document.getElementById('userRoleBadge').textContent = "Staff ID: 1042";
-    document.getElementById('userAvatar').textContent = "D";
+  // Set Profile Header Values
+  document.getElementById('displayName').textContent = "S. DINESH";
+  document.getElementById('displayRole').textContent = "Staff ID: 1042";
+  document.getElementById('avatarIcon').textContent = "D";
 
-    // Navigation menus
-    document.getElementById('staffNavGroup').classList.remove('hidden');
-    document.getElementById('userNavGroup').classList.add('hidden');
+  // Show Staff Navigation Menu
+  document.getElementById('staffMenu').classList.remove('hidden');
+  document.getElementById('userMenu').classList.add('hidden');
 
-    // Unlock App
-    unlockDashboard('staff-home');
+  unlockMainApp('staff-home-page');
 }
 
-// Complete Login & Show Dashboard
-function unlockDashboard(defaultTab) {
-    document.getElementById('authView').classList.add('hidden');
-    document.getElementById('mainDashboardView').classList.remove('hidden');
-    switchTab(defaultTab);
+// Open Dashboard
+function unlockMainApp(defaultTabId) {
+  document.getElementById('authScreen').classList.add('hidden');
+  document.getElementById('appContainer').classList.remove('hidden');
+  showTab(defaultTabId);
 }
 
-// Handle Logout
-function handleLogout() {
-    document.getElementById('mainDashboardView').classList.add('hidden');
-    document.getElementById('authView').classList.remove('hidden');
-    goToScreen('commonLandingScreen');
+// Perform Logout
+function performLogout() {
+  document.getElementById('appContainer').classList.add('hidden');
+  document.getElementById('authScreen').classList.remove('hidden');
+  showAuthForm('commonEntry');
 }
 
 // Registration Submit
-function handleRegistration(event) {
-    event.preventDefault();
-    alert("Registration Successful! Please login.");
-    goToScreen('userLoginScreen');
+function handleRegistrationSubmit(event) {
+  event.preventDefault();
+  alert("Registration Successful! Please proceed to login.");
+  showAuthForm('userLogin');
 }
 
-// Forgot Password Flow
-function sendOtp() {
-    document.getElementById('forgotStep1').classList.add('hidden');
-    document.getElementById('forgotStep2').classList.remove('hidden');
+// OTP Functions
+function sendOtpCode() {
+  document.getElementById('otpStep1').classList.add('hidden');
+  document.getElementById('otpStep2').classList.remove('hidden');
 }
 
-function verifyOtp() {
-    alert("OTP Verified Successfully! Password reset link sent.");
-    goToScreen('commonLandingScreen');
+function verifyOtpCode() {
+  alert("OTP Verified! Password reset instructions sent.");
+  showAuthForm('commonEntry');
 }
 
-// Tab Switcher inside Dashboard
-function switchTab(tabId, element) {
-    const pages = document.querySelectorAll('.tab-page');
-    pages.forEach(p => p.classList.remove('active'));
+// Navigation Tab Switcher
+function showTab(tabId, element) {
+  const tabs = document.querySelectorAll('.content-tab');
+  tabs.forEach(tab => tab.classList.remove('active'));
 
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => item.classList.remove('active'));
+  const navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(item => item.classList.remove('active'));
 
-    const targetPage = document.getElementById(tabId);
-    if (targetPage) targetPage.classList.add('active');
+  const activeTab = document.getElementById(tabId);
+  if (activeTab) {
+    activeTab.classList.add('active');
+  }
 
-    if (element) element.classList.add('active');
+  if (element) {
+    element.classList.add('active');
+  }
 }
 
 // Sidebar Toggle
-document.getElementById('sidebarToggle').addEventListener('click', function () {
-    document.getElementById('sidebar').classList.toggle('collapsed');
+document.getElementById('menuToggle').addEventListener('click', function () {
+  document.getElementById('appSidebar').classList.toggle('collapsed');
 });
+
+// Staff Demo Tools
+function searchCardDemo() {
+  document.getElementById('searchResult').classList.remove('hidden');
+}
+
+function changeQty(amount) {
+  const input = document.getElementById('qtyVal');
+  let currentVal = parseInt(input.value) || 0;
+  currentVal += amount;
+  if (currentVal < 0) currentVal = 0;
+  input.value = currentVal;
+}
