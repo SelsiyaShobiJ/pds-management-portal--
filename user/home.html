@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - User Portal</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="app-layout">
+    <header class="app-header">
+      <div class="header-left">
+        <div class="brand">
+          <i class="fa-solid fa-store"></i>
+          <span>Ration Shop Mgmt</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <a href="notifications.html" style="color:var(--text-dark); position:relative; text-decoration:none;">
+          <i class="fa-solid fa-bell fa-lg"></i>
+          <span style="position:absolute; top:-5px; right:-5px; background:var(--danger-color); color:white; border-radius:50%; font-size:0.65rem; padding:2px 5px;">2</span>
+        </a>
+        <div class="user-pill">
+          <div class="avatar">S</div>
+          <div class="user-meta">
+            <span class="user-name">SARA</span>
+            <span class="user-sub">Card: PHH-892300</span>
+          </div>
+        </div>
+        <a href="../index.html" class="btn btn-outline">Logout</a>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <nav class="nav-menu">
+          <div class="nav-category">Beneficiary Portal</div>
+          <a class="nav-item active" href="home.html"><i class="fa-solid fa-house"></i> Home Dashboard</a>
+          <a class="nav-item" href="search-shop-1.html"><i class="fa-solid fa-shop"></i> Search Shops</a>
+          <a class="nav-item" href="news.html"><i class="fa-solid fa-newspaper"></i> News & Notices</a>
+          <a class="nav-item" href="notifications.html"><i class="fa-solid fa-bell"></i> Notifications</a>
+          <a class="nav-item" href="transactions-1.html"><i class="fa-solid fa-receipt"></i> Transactions</a>
+          <a class="nav-item" href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <div class="section-title">
+          <h2>Welcome back, Sara!</h2>
+          <p>Assigned Ration Outlet Overview & Monthly Quota Status</p>
+        </div>
+
+        <div class="dashboard-cards">
+          <div class="card">
+            <h3><i class="fa-solid fa-shop"></i> Main Ration Shop, Nagercoil</h3>
+            <p style="margin-top:8px;"><strong>Shop ID:</strong> #12345</p>
+            <p><strong>Timing:</strong> 8:30 AM - 5:30 PM</p>
+            <p><strong>In-Charge:</strong> S. Dinesh</p>
+            <div class="status-tag open"><i class="fa-solid fa-circle-check"></i> Open Today</div>
+            <div style="margin-top: 14px;">
+              <a href="shop-details.html" class="btn btn-secondary btn-full">View Shop Details</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Current Month Quota Allotment</h3>
+            <ul class="stock-list">
+              <li><span>Rice</span> <strong>20 kg</strong></li>
+              <li><span>Sugar</span> <strong>5 kg</strong></li>
+              <li><span>Wheat</span> <strong>10 kg</strong></li>
+              <li><span>Kerosene</span> <strong>3 L</strong></li>
+            </ul>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <footer class="app-footer">
+      <p>&copy; 2026 Public Distribution System Portal</p>
+    </footer>
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
